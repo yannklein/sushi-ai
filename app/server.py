@@ -9,11 +9,27 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
-export_file_name = 'export.pkl'
+# Base example model
+# export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
+# export_file_name = 'export.pkl'
 
-classes = ['black', 'grizzly', 'teddys']
+# Custom model
+model_name = "green-model-v3"
+export_file_url = f"https://www.dropbox.com/s/1v8a5nmez8kfny7/{model_name}.pth?raw=1"
+model_file_name = 'model'
+export_file_name = f'models/{model_file_name}'
+
 path = Path(__file__).parent
+
+# Base example classes
+# classes = ['black', 'grizzly', 'teddys']
+
+# Custom classes
+classes = ['mizuna', 'komatsuna', 'horenso', 'cabbage', 'hakusai']
+
+if os.path.isfile(export_file_name):
+  os.remove(export_file_name)
+  print("Old model removed!")
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
@@ -32,7 +48,15 @@ async def download_file(url, dest):
 async def setup_learner():
     await download_file(export_file_url, path / export_file_name)
     try:
-        learn = load_learner(path, export_file_name)
+        # Base code to use .pkl
+        # learn = load_learner(path, export_file_name)
+
+        # Custom code for .pth
+        data_bunch = ImageDataBunch.single_from_classes(path, classes,
+        ds_tfms=get_transforms(), size=224).normalize(imagenet_stats)
+        learn = cnn_learner(data_bunch, models.resnet34, pretrained=False)
+        learn.load(model_file_name)
+
         return learn
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
@@ -60,7 +84,7 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
+    prediction = learn.predict(img)
     return JSONResponse({'result': str(prediction)})
 
 
