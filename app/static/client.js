@@ -31,7 +31,7 @@ function analyze() {
       var response = JSON.parse(e.target.responseText);
       el("result").innerHTML =
         `
-          <h2>And your sushi is... a ${response["result"]} sushi!</h2>
+          <h2>That's... a ${response["result"]} sushi!</h2>
           <p>Full results:</p>
           <ul>${Object.keys(response["details"]).map(key => `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${response["details"][key]}%</li>`).join('')}</p>
         `;

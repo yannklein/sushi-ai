@@ -22,10 +22,12 @@ body {
 }
 
 .analyze {
-    position: fixed;
-    bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
+  position: fixed;
+  bottom: 24px;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 .upload-label {
@@ -39,16 +41,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 72px;
 }
 
 #result p{
   margin: 0;
+  font-weight: bolder;
 }
 
 #result ul{
   text-align: left;
   padding: 0;
   list-style: none;
+  margin: 0;
 }
 
 button.choose-file-button {
@@ -63,14 +68,26 @@ button.choose-file-button {
 
 button.analyze-button {
     width: 200px;
-    height: 40px;
+    height: 56px;
     border: solid 1px #FF4F64;
     border-radius: 2px;
     background-color: #FF4F64;
-    font-size: 13px;
+    font-size: 24px;
     color: #ffffff;
 }
 
 button:focus {
     outline: 0;
+}
+
+@media (max-width: 500px) {
+  .analyze {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+  }
+  button.analyze-button {
+    width: 100%;
+    height: 80px;
+  }
 }
