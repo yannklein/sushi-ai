@@ -29,21 +29,26 @@ body {
 }
 
 .upload-label {
-    padding: 10px;
-    font-size: 12px;
+  margin-top: 16px;
+  font-size: 12px;
 }
 
 #result {
-    margin-top: 0.5em;
     padding: 10px;
-    font-size: 13px;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+#result p{
+  margin: 0;
+}
+
 #result ul{
   text-align: left;
+  padding: 0;
+  list-style: none;
 }
 
 button.choose-file-button {
