@@ -2,6 +2,10 @@ body {
     background-color: #fff;
 }
 
+h1, h2 {
+  font-family: sans-serif;
+}
+
 .no-display {
     display: none;
 }
@@ -33,10 +37,17 @@ body {
     font-size: 12px;
 }
 
-.result-label {
+#result {
     margin-top: 0.5em;
     padding: 10px;
     font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#result ul{
+  text-align: left;
 }
 
 button.choose-file-button {
@@ -44,17 +55,17 @@ button.choose-file-button {
     height: 40px;
     border-radius: 2px;
     background-color: #ffffff;
-    border: solid 1px #7052CB;
+    border: solid 1px #FF4F64;
     font-size: 13px;
-    color: #7052CB;
+    color: #FF4F64;
 }
 
 button.analyze-button {
     width: 200px;
     height: 40px;
-    border: solid 1px #7052CB;
+    border: solid 1px #FF4F64;
     border-radius: 2px;
-    background-color: #7052CB;
+    background-color: #FF4F64;
     font-size: 13px;
     color: #ffffff;
 }

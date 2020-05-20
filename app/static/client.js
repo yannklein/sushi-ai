@@ -29,7 +29,12 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+      el("result").innerHTML =
+        `
+          <h2>And your sushi is... a ${response["result"]} sushi!</h2>
+          <p>Full results:</p>
+          <ul>${Object.keys(response["details"]).map(key => `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${response["details"][key]}%</li>`).join('')}</p>
+        `;
     }
     el("analyze-button").innerHTML = "Analyze";
   };
