@@ -17,7 +17,7 @@ from starlette.staticfiles import StaticFiles
 model_name = "green-model-v3"
 export_file_url = f"https://www.dropbox.com/s/1v8a5nmez8kfny7/{model_name}.pth?raw=1"
 model_file_name = 'model'
-export_file_name = f'models/{model_file_name}'
+export_file_name = f'models/{model_file_name}.pth'
 
 path = Path(__file__).parent
 
