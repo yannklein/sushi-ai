@@ -1,8 +1,5 @@
 body {
-    background-color: #fff;
-}
-
-h1, h2 {
+  background-color: #fff;
   font-family: sans-serif;
 }
 
@@ -11,25 +8,24 @@ h1, h2 {
 }
 
 .center {
-    margin: auto;
-    padding: 10px 50px;
+    padding: 24px;
     text-align: center;
-    font-size: 14px;
 }
 
 .title {
-    font-size: 30px;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    color: #262626;
+  font-size: 40px;
+  margin: 24px 0;
 }
 
 .content {
-    margin-top: 10em;
+  margin: 24px 0;
 }
 
 .analyze {
-    margin-top: 5em;
+    position: fixed;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .upload-label {
