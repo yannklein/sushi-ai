@@ -14,8 +14,8 @@ from starlette.staticfiles import StaticFiles
 # export_file_name = 'export.pkl'
 
 # Custom model
-model_name = "sushi-model"
-export_file_url = f"https://www.dropbox.com/s/1nrwmn8b3ci2ijs/{model_name}.pth?raw=1"
+model_name = "multi-sushi-model"
+export_file_url = f"https://www.dropbox.com/s/c0v6pnjqp2iwjjw/{model_name}.pth?raw=1"
 model_file_name = 'model'
 export_file_name = f'models/{model_file_name}.pth'
 
@@ -25,7 +25,8 @@ path = Path(__file__).parent
 # classes = ['black', 'grizzly', 'teddys']
 
 # Custom classes
-classes = sorted(['salmon', 'tuna', 'saba'])
+classes = ['salmon','tuna','saba','aji','anago','unagi','tamago','ikura','ebi','tai']
+classes = sorted(classes)
 
 if os.path.isfile(export_file_name):
   os.remove(export_file_name)

@@ -1,6 +1,11 @@
 body {
   background-color: #fff;
   font-family: sans-serif;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
 }
 
 .no-display {
@@ -8,7 +13,7 @@ body {
 }
 
 .center {
-    padding: 24px;
+    padding: 0 24px;
     text-align: center;
 }
 
