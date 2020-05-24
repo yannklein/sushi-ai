@@ -23,7 +23,6 @@
 
   <link rel='stylesheet' href='../static/style.css'>
   <title>What's the sushi?!</title>
-  <script src='../static/client.js'></script>
 </head>
 <body>
 <div>
@@ -38,10 +37,9 @@
                class='no-display'
                type='file'
                name='file'
-               accept='image/*'
-               onchange='showPicked(this)'>
+               accept='image/*'>
       </div>
-      <button class='choose-file-button' type='button' onclick='showPicker()'>Upload a sushi</button>
+      <button class='choose-file-button' type='button'>Upload a sushi</button>
       <div class='upload-label'>
         <label id='upload-label'>No file chosen</label>
       </div>
@@ -51,10 +49,11 @@
       <div id='result'>
       </div>
       <div class='analyze'>
-        <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Ask the AI</button>
+        <button id='analyze-button' class='analyze-button' type='button'>Ask the AI</button>
       </div>
     </div>
   </div>
 </div>
+<script src='../static/client.js'></script>
 </body>
 </html>

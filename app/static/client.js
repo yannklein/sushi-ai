@@ -1,46 +1,52 @@
-var el = x => document.getElementById(x);
+const el = x => document.getElementById(x);
 
-function showPicker() {
+const showPicker = () => {
   el("file-input").click();
 }
 
-function showPicked(input) {
-  el("upload-label").innerHTML = input.files[0].name;
-  var reader = new FileReader();
+const showPicked = (event) => {
+  el("upload-label").innerHTML = event.currentTarget.files[0].name;
+  const reader = new FileReader();
   reader.onload = function(e) {
     el("image-picked").src = e.target.result;
     el("image-picked").className = "";
   };
-  reader.readAsDataURL(input.files[0]);
+  reader.readAsDataURL(event.currentTarget.files[0]);
 }
 
-function analyze() {
-  var uploadFiles = el("file-input").files;
+const analyze = () => {
+  const uploadFiles = el("file-input").files;
   if (uploadFiles.length !== 1) alert("Please select a file to analyze!");
 
   el("analyze-button").innerHTML = "Analyzing...";
-  var xhr = new XMLHttpRequest();
-  var loc = window.location;
-  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
-    true);
-  xhr.onerror = function() {
-    alert(xhr.responseText);
+
+
+  const formdata = new FormData();
+  formdata.append("file", uploadFiles[0]);
+
+  const requestOptions = {
+    method: 'POST',
+    body: formdata
   };
-  xhr.onload = function(e) {
-    if (this.readyState === 4) {
-      var response = JSON.parse(e.target.responseText);
+  const loc = window.location;
+  fetch(`${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
       el("result").innerHTML =
         `
-          <h2>That's... a ${response["result"]} sushi!</h2>
+          <h2>That's... a ${data.result} sushi!</h2>
           <p>Full results:</p>
-          <ul>${Object.keys(response["details"]).map(key => `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${response["details"][key]}%</li>`).join('')}</p>
+          <ul>${Object.keys(data.details).map(key => `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${data.details[key]}%</li>`).join('')}</p>
         `;
-    }
-    el("analyze-button").innerHTML = "Analyze";
-  };
-
-  var fileData = new FormData();
-  fileData.append("file", uploadFiles[0]);
-  xhr.send(fileData);
+      el("analyze-button").innerHTML = "Analyze";
+    })
+    .catch(error => console.log('error',error));
 }
+
+document.querySelector('.choose-file-button').addEventListener('click', showPicker);
+document.querySelector('.analyze-button').addEventListener('click', analyze);
+document.querySelector('#file-input').addEventListener('change', showPicked);
+
+
 
