@@ -13,9 +13,11 @@ from starlette.staticfiles import StaticFiles
 # export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
 # export_file_name = 'export.pkl'
 
+# https://www.dropbox.com/s/oeha2t6ip0w2thl/super-multi-sushi.pth?dl=0
+
 # Custom model
-model_name = "multi-sushi-model"
-export_file_url = f"https://www.dropbox.com/s/c0v6pnjqp2iwjjw/{model_name}.pth?raw=1"
+model_name = "super-multi-sushi"
+export_file_url = f'https://www.dropbox.com/s/oeha2t6ip0w2thl/{model_name}.pth?raw=1'
 model_file_name = 'model'
 export_file_name = f'models/{model_file_name}.pth'
 
@@ -25,8 +27,37 @@ path = Path(__file__).parent
 # classes = ['black', 'grizzly', 'teddys']
 
 # Custom classes
-classes = ['salmon','tuna','saba','aji','anago','unagi','tamago','ikura','ebi','tai']
+# classes = ['salmon','tuna','saba','aji','anago','unagi','tamago','ikura','ebi','tai']
+classes = [
+  {'jp': 'サーモン', 'en': 'salmon'},
+  {'jp': 'マグロ', 'en': 'tuna'},
+  {'jp': 'さば', 'en': 'mackerel'},
+  {'jp': 'アジ', 'en': 'spanish mackerel'},
+  {'jp': 'アナゴ', 'en': 'sea eel'},
+  {'jp': 'ウナギ', 'en': 'eel'},
+  {'jp': '卵', 'en': 'egg'},
+  {'jp': 'いくら', 'en': 'salmon roe'},
+  {'jp': 'えび', 'en': 'shrimp'},
+  {'jp': '鯛', 'en': 'sea bream'},
+  {'jp': 'つぶ貝', 'en': 'whelk'},
+  {'jp': 'ブリ', 'en': 'yellowtail fish'},
+  {'jp': 'ホッキ貝', 'en': 'surf clam'},
+  {'jp': '縁側', 'en': 'halibut fin'},
+  {'jp': 'たこ', 'en': 'octopus'},
+  {'jp': 'イカ', 'en': 'squid'},
+  {'jp': 'カンパチ', 'en': 'amberjack'},
+  {'jp': 'イワシ', 'en': 'sardine'},
+  {'jp': 'ウニ', 'en': 'sea urchin'},
+  {'jp': 'ホタテ', 'en': 'scallop'},
+  {'jp': '赤貝', 'en': 'ark clam'},
+  {'jp': 'かに', 'en': 'crab'},
+  {'jp': 'カツオ', 'en': 'bonito'},
+  {'jp': '小肌', 'en': 'shad'},
+  {'jp': '大トロ', 'en': 'fatty tuna'}
+]
+classes = map(lambda classe: classe['en'], classes)
 classes = sorted(classes)
+print(classes)
 
 if os.path.isfile(export_file_name):
   os.remove(export_file_name)
@@ -86,7 +117,7 @@ async def analyze(request):
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)
-    print('prediction:', prediction[2][1].item())
+    print('prediction:', round(prediction[2][prediction[1].item()].item() * 100))
     details = {}
     for index, each_class in enumerate(classes):
       details[each_class] = round(prediction[2][index].item() * 100)
@@ -94,6 +125,7 @@ async def analyze(request):
     return JSONResponse(
       {
         'result': str(prediction[0]),
+        'resultPct': round(prediction[2][prediction[1].item()].item() * 100),
         'details': details
       }
     )

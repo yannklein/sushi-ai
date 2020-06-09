@@ -32,12 +32,21 @@ const analyze = () => {
   fetch(`${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, requestOptions)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
+      window.mydata = data;
       el("result").innerHTML =
         `
-          <h2>That's... a ${data.result} sushi!</h2>
-          <p>Full results:</p>
-          <ul>${Object.keys(data.details).map(key => `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${data.details[key]}%</li>`).join('')}</p>
+          <h2>
+            ${data.resultPct >= 60 ? `That's... a ${data.result} sushi!` : `Not sure about that one... maybe a ${data.result} sushi?`}
+          </h2>
+          <p>Full result:</p>
+          <ul>
+          ${Object.keys(data.details)
+            .filter(key => data.details[key] >= 5)
+            .sort((keyA, keyB) => data.details[keyB] - data.details[keyA])
+            .map(key =>
+              `<li>${key[0].toUpperCase()}${key.substring(1)} sushi - ${data.details[key]}%</li>`)
+            .join('')}
+          </ul>
         `;
       el("analyze-button").innerHTML = "Analyze";
     })
