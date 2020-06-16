@@ -14,10 +14,11 @@ from starlette.staticfiles import StaticFiles
 # export_file_name = 'export.pkl'
 
 # https://www.dropbox.com/s/oeha2t6ip0w2thl/super-multi-sushi.pth?dl=0
+# https://www.dropbox.com/s/k9wqc1p5lkgrav8/clean-super-multi-sushi.pth?dl=0
 
 # Custom model
-model_name = "super-multi-sushi"
-export_file_url = f'https://www.dropbox.com/s/oeha2t6ip0w2thl/{model_name}.pth?raw=1'
+model_name = "clean-super-multi-sushi"
+export_file_url = f'https://www.dropbox.com/s/k9wqc1p5lkgrav8/{model_name}.pth?raw=1'
 model_file_name = 'model'
 export_file_name = f'models/{model_file_name}.pth'
 
