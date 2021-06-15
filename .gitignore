@@ -1,2 +1,5 @@
 app/export.pkl
 app/models/*
+app/static/.DS_Store
+Pipfile.lock
+.DS_Store

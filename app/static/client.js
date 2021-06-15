@@ -52,7 +52,6 @@ const analyze = () => {
 
   el("analyze-button").innerHTML = "Analyzing...";
 
-
   const formdata = new FormData();
   formdata.append("file", uploadFiles[0]);
 
@@ -88,6 +87,3 @@ const analyze = () => {
 document.querySelector('.choose-file-button').addEventListener('click', showPicker);
 document.querySelector('.analyze-button').addEventListener('click', analyze);
 document.querySelector('#file-input').addEventListener('change', showPicked);
-
-
-
