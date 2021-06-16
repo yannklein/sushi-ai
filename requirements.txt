@@ -1,9 +1,9 @@
 aiofiles==0.4.0
 aiohttp==3.5.4
 asyncio==3.4.3
-https://download.pytorch.org/whl/cpu/torch-1.5.1%2Bcpu-cp36-cp36m-linux_x86_64.whl
-https://download.pytorch.org/whl/cpu/torchvision-0.6.1%2Bcpu-cp36-cp36m-linux_x86_64.whl
-fastai==1.0.61
+https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+torchvision==0.2.2
+fastai==1.0.52
 numpy
 pillow~=6.0
 python-multipart==0.0.5
