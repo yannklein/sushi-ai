@@ -2,9 +2,9 @@ aiofiles==0.4.0
 aiohttp==3.5.4
 asyncio==3.4.3
 -f https://download.pytorch.org/whl/torch_stable.html
-torch==1.8.1+cpu 
-torchvision==0.9.1+cpu
-fastai==1.0.57
+torch==1.6.0+cpu 
+torchvision==0.7.0+cpu
+fastai==1.0.61
 numpy
 pillow~=6.0
 python-multipart==0.0.5
