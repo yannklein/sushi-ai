@@ -64,9 +64,9 @@ classes = map(lambda classe: classe['en'], classes)
 classes = sorted(classes)
 print(classes)
 
-if os.path.isfile(export_file_name):
-  os.remove(export_file_name)
-  print("Old model removed!")
+# if os.path.isfile(export_file_name):
+#   os.remove(export_file_name)
+#   print("Old model removed!")
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
@@ -89,8 +89,12 @@ async def setup_learner():
         # learn = load_learner(path, export_file_name)
 
         # Custom code for .pth
-        data_bunch = ImageDataBunch.single_from_classes(path, classes,
-        ds_tfms=get_transforms(), size=224).normalize(imagenet_stats)
+        data_bunch = ImageDataBunch.single_from_classes(
+          path, 
+          classes, 
+          ds_tfms=get_transforms(), 
+          size=224
+          ).normalize(imagenet_stats)
         learn = cnn_learner(data_bunch, models.resnet34, pretrained=False)
         learn.load(model_file_name)
 
@@ -104,10 +108,10 @@ async def setup_learner():
             raise
 
 
-loop = asyncio.get_event_loop()
-tasks = [asyncio.ensure_future(setup_learner())]
-learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
-loop.close()
+# loop = asyncio.get_event_loop()
+# tasks = [asyncio.ensure_future(setup_learner())]
+# learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+# loop.close()
 
 
 @app.route('/')
