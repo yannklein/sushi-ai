@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import uvicorn
+import urllib.request
 from fastai import *
 from fastai.vision import *
 from io import BytesIO
@@ -74,6 +75,7 @@ app.mount('/static', StaticFiles(directory='app/static'))
 
 
 async def download_file(url, dest):
+    return
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -89,6 +91,9 @@ async def setup_learner():
         # learn = load_learner(path, export_file_name)
 
         # Custom code for .pth
+        MODEL_URL = "https://yanns-models.s3.eu-central-1.amazonaws.com/model.pth"
+        urllib.request.urlretrieve(MODEL_URL, "model.pth")
+
         data_bunch = ImageDataBunch.single_from_classes(
           path, 
           classes, 
@@ -96,7 +101,7 @@ async def setup_learner():
           size=224
           ).normalize(imagenet_stats)
         learn = cnn_learner(data_bunch, models.resnet34, pretrained=False)
-        learn.load(model_file_name)
+        learn.load(Path("."), "model.pkl")
 
         return learn
     except RuntimeError as e:
