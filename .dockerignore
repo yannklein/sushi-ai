@@ -1,4 +1,4 @@
-*.pth
+app/models/*
 .gitignore
 Dockerfile
 README.md
