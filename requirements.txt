@@ -1,5 +1,5 @@
 aiofiles==0.4.0
-aiohttp==3.5.4
+aiohttp==3.8.1
 asyncio==3.4.3
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.6.0+cpu 
